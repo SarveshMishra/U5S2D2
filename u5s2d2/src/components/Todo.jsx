@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import TodoList from "./TodoList";
-import ShowTodoItem from "./ShowTodoItem";
+import { useEffect, useState } from 'react';
+import TodoList from './TodoList';
+import ShowTodoItem from './ShowTodoItem';
 const Todo = () => {
 	const [todoItem, setTodoItem] = useState([]);
 	const [lastPage, setLastPage] = useState(1);
@@ -12,12 +12,12 @@ const Todo = () => {
 	const getTodoItem = () => {
 		fetch(`http://localhost:3000/posts?_page=${page}&_limit=3`)
 			.then((response) => {
-				setLastPage(Math.ceil(response.headers.get("X-Total-Count") / 3));
+				setLastPage(Math.ceil(response.headers.get('X-Total-Count') / 3));
 				// console.log(lastPage);
 				return response.json();
 			})
 			.then((result) => setTodoItem(result))
-			.catch((error) => console.log("error", error));
+			.catch((error) => console.log('error', error));
 	};
 	// Add Todo Item to the database
 	const addTodo = (todo) => {
@@ -25,9 +25,9 @@ const Todo = () => {
 			title: todo,
 			completed: false,
 		};
-		fetch("http://localhost:3000/posts", {
-			method: "POST",
-			headers: { "content-type": "application/json" },
+		fetch('http://localhost:3000/posts', {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify(data),
 		}).then(() => getTodoItem());
 	};
@@ -44,6 +44,7 @@ const Todo = () => {
 			>
 				Previous
 			</button>
+			<span style={{ margin: '10px' }}>{page}</span>
 			<button
 				onClick={() => {
 					setPage(page + 1);
